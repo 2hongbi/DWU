@@ -27,19 +27,3 @@ class Notebook:
     def search(self, txt):
         found_notes = [note for note in self.notes if note.match(txt)]
         return found_notes
-
-
-if __name__ == '__main__':
-    n = Notebook()
-    n.new_note('hello world')
-    n.new_note('hello again')
-
-    for note in n.notes:
-        print(f'id : {note.id}, 메모내용 : {note.memo}')
-
-    search_notes = n.search('hello')
-    for note in search_notes:
-        print(f'id : {note.id}')
-
-    n.modify_memo(1, 'hi, world')
-    print(n.notes[0].memo)
