@@ -1,0 +1,197 @@
+---
+title: "factor_analysis"
+author: "20191775 SoyeonLee"
+date: '2021 11 14 '
+output: html_document
+---
+
+
+## Ch 3: 요인분석/요인분석
+
+### 요인분석 패키지
+
+- R
+
+| 방법 | R함수 |
+| ---- | ------ |
+|주성분추출| psych::principal(r, nfactors, rotate=‘varimax’, method=‘reg’, ..)|
+| 주요인추출, ML, WLS | psych::fa(r, nfactors, rotate=‘oblimin’, fm=‘minres,pa,ml,..’, ..) |
+| 주요인추출, ML |	stats::factanal(x, factors, data, scores=‘none,reg,Bartlett’, rotate=‘varimax’,..) |
+|factorextra| fviz_famd(mixed data), fviz_hmfa(hier multiple factor). FactoMineR 연동 |
+|FactoMineR|FAMD, HMFA, MFA, PCA, MCA, …|
+
+### 자료읽기
+임산부들의 속옷에 대한 불만사항을 파악하기 위해 서울 소재 두 병원의 산부인과 외래환자 130명을 대상으로 설문조사를 실시하였다.
+
+- 출처: 송문섭, 조신섭
+
+- n=130(결측 포함), 모든 문항은 5점 척도(1=매우 그렇다, .., 5: 매우 그렇지 않다)
+
+| 문항 | 질문 |
+| ---- | ------ |
+|1. |치수가 잘 안맞는다|
+|2. |컵이 작다|
+|3. |컵아래(밑가슴)부분이 조인다|
+|4. |겨드랑이 밑이 조인다|
+|5. |원단의 신축성이 없다|
+|6. |촉감이 거칠다|
+|7. |땀을 잘 흡수하지 못한다|
+|8. |오래 착용시 답답하다|
+|9, |착용시 앞중심 부분이 들뜬다|
+|10, |컵아래 부분이 위로 올라간다|
+|11. |어깨끈이 흘러 내린다|
+|12. |뒤여밈때문에 착용시 불편하다|
+|13. |앞여밈때문에 착용시 불편하다|
+|14. |가슴을 잘 받쳐주지 못한다|
+|15. |가슴을 잘 모아주지 못한다|
+|16. |가슴의 흔들림을 잘 고정시키지 못한다|
+|17. |디자인이 세련되지 못한다|
+|18, |디자인이 다양하지 못하다|
+
+```{r}
+op <- par(no.readonly = TRUE)
+library(knitr)
+library(tidyverse)
+
+# 변수 정리
+underwear <- read.csv('C:/Users/foxgi/OneDrive/project/DWU/multivariate/linear_algebra/data/QUSTNAIR.csv', header = TRUE)
+dim(underwear)
+```
+
+### 자료정리
+
+- 결측이 있는 관측값을 제거하여 X에 저장하시오 (결측 제거후 관측값이 몇개인지 확인할 것).
+
+```{r}
+X <- na.omit(underwear)
+dim(X)
+
+head(X)
+```
+
+### 자료탐색/요인분석 적절성
+
+- X의 상관행렬을 시각화하시오
+```{r}
+R <- cor(X)
+
+knitr::kable(R, digits=3)
+
+## 상관행렬 시각화
+library(corrplot)
+
+corrplot.mixed(R, upper='ellipse')
+```
+
+- KMO의 MSA를 구하고 요인분석을 진행해도 되는지 설명하시오
+```{r}
+## KMO의 MSA: 상관관계(행렬)기 요인분석을 하기에 적합한지 측정
+library(psych)
+KMO(R)
+```
+MSA가 0.7이 나왔고 이는 평범한 수준으므로, 요인분석을 계속해도 됩니다.
+
+
+- Bartlett의 구형성검정(H0: Rho = I )을 하고 요인분석을 진행해도 되는지 설명하시오
+```{r}
+```
+
+### 주성분 요인분석 1
+
+- psych::scree(상관행렬 또는 X)로 적절한 요인수를 결정하시오
+```{r}
+## Bartlett의 구형성검정
+cortest.bartlett(R, n=nrow(X))
+```
+p-value가 5의 -35승이고, 이는 0과 근사하다. 떄문에 상관행렬이 I라는 H0를 기각하므로 요인분석을 진행해도 된다.
+
+
+- 회전없이 주성분 요인분석을 하시오.
+
+  - 공통성과 특수성으로 각 문항별로 공통요인들의 성능확인
+```{r}
+Mfapc <- principal(X, nfactors=3, rotate='none')
+print(Mfapc, digits=4)
+```
+  
+  - 분산설명력으로 요인별 분산설명력과 요인분석의 전체설명력 확인
+
+요인적재량으로 S를 분해한 결과, 공통성(h2)과 특수성(u2)은 위와 같이 나왔습니다.
+고품질의 공통성은 0.485로, 변동성 중 공통요인은 48.5%이고,
+고품질의 특수성은 0.515로, 변동성 중 특수성은 51.5%으로 설명 가능합니다.
+  
+  - 요인적재량을 이용하여 각 요인의 이름을 부쳐볼 것(해석이 쉽지 않으므로 검토만 해볼 것)
+  
+- 회전전 요인행렬: R의 아이겐벡터 SPSS는 요인
+
+  - 요인1의 변수에 대한 적재량 = sqrt(아이겐값1) * 아이겐벡터1
+  
+  - (R분석시) 요인과 변수간 상관계수 
+  
+  - 요인1: 뒤여밈때문에 착용시 불편하다
+  
+  - 요인2: 가슴을 잘 받쳐주지 못한다
+  
+  - 요인3: 어깨끈이 흘러 내린다
+  
+  - 요인4: 컵아래 부분이 위로 올라간다
+  
+  - 요인5: 착용시 앞중심 부분이 들뜬다
+  
+- fa.sort로 요인적재량 높은 순으로 출력하시오
+```{r}
+fa.sort(Mfapc$loadings)
+```
+
+- fa.diagram을 이용하여 요인적재량을 시각화하시오
+```{r}
+fa.diagram(Mfapc, simple=FALSE, cut=0.4, digits=3)
+```
+
+### 주성분 요인분석 2. Varimax 회전
+
+- Varimax 회전한 주성분 요인분석을 하시오.
+```{r}
+# varimax 회전
+Mfapcvmx <- principal(X, nfactor=3, rotate='varimax')
+print(Mfapcvmx, digits=4)
+
+
+```
+
+  - 공통성과 특수성으로 각 문항별로 공통요인들의 성능확인
+  
+  - 분산설명력으로 요인별 분산설명력과 요인분석의 전체설명력 확인
+  
+  - 요인적재량을 이용하여 각 요인의 이름을 정하시오
+  
+- 회전후 요인행렬: R의 아이겐벡터 SPSS는 요인
+
+  - (R분석시) 요인과 변수간 상관계수
+
+  - 요인1: 뒤여밈때문에 착용시 불편하다
+
+  - 요인2: 앞여밈때문에 착용시 불편하다
+
+  - 요인3: 컵아래(밑가슴)부분이 조인다
+
+  - 요인4: 오래 착용시 답답하다
+
+  - 요인5: 가슴을 잘 받쳐주지 못한다
+
+- fa.sort로 요인적재량 높은 순으로 출력하시오. 요인적재량이 다수의 요인에 걸리는 문항이 있는지 확인(cut을 0.5이하 여러가지 값을 시도해볼 것)
+```{r}
+# 회전 후 요인행렬
+print(fa.sort(Mfapcvmx), cut=0.4, digits=4)
+```
+
+- fa.diagram을 이용하여 요인적재량을 시각화하시오. 요인적재량이 다수의 요인에 걸리는 문항이 있는지 확인(cut을 0.5이하 여러가지 값을 시도해볼 것)
+```{r}
+
+fa.diagram(Mfapcvmx, simple=FALSE, cut=0.4, digits=4)
+```
+
+- biplot으로 회전이 적절한지 확인하시오
+```{r}
+biplot(Mfapcvmx)
+```
