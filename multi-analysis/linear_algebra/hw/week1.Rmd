@@ -1,0 +1,337 @@
+---
+title: "MV2021-HW01-Matrixalgebra"
+author: "20191775 SoyeonLee"
+date: '2021 10 3 '
+output: html_document
+---
+
+### 1: 연립방정식, 가우스 소거법
+- A를 LU 분해하고 동차연립방정식의 답을 구하시오.
+
+$$A = \begin{bmatrix}6&2&2\\2&2&0\\2&0&2\\ \end{bmatrix}$$
+```{r}
+
+### 1번문제
+A <- matrix(c(6,2,2,2,2,0,2,0,2), byrow=TRUE, nr=3)
+
+E1 <- diag(3)
+E1[2, 1] <- -1/3
+E1A <- E1 %*% A
+
+cbind(E1, A, E1A)
+
+
+E2 <- diag(3)
+E2[3, 1] <- -1/3
+E2E1A <- E2 %*% E1A
+
+cbind(E2, E1A, E2E1A)
+
+E3 <- diag(3)
+E3[3, 2] <- 0.5
+E3E2E1A <- E3 %*% E2E1A
+
+cbind(E3, E2E1A, E3E2E1A)
+
+L <- solve(E1) %% solve(E2) %% solve(E3)
+U <- E3E2E1A
+LU <- L %*% U
+
+cbind(L, U, LU)
+
+solve(A, c(0,0,0))
+
+det(A)
+
+invA <- solve(A)
+invA
+
+```
+
+### 2: 연립방정식의 답
+- Ax=b의 답을 구하시오(재미삼아 손으로 풀어보세요)
+- 답 :  $x=20, y=-20, z=-10$ (수기로 풀었습니다.)
+
+### 3: 연립방정식, 정규방정식
+- 다음 연립방정식 $X\beta = y$는 답이 없다.
+  - 미지수의 수는 몇 개인가? 3개
+  - 방정식의 수는 몇 개인가? 6개
+  - 연립방정식의 답은 존재하는가? (존재 안하니 애쓰지 말 것) 없습니다.
+$$X\beta = y => \begin{bmatrix}1&1&0\\1&1&0\\1&0&1\\1&0&1\\1&0&0\\1&0&0\\ \end{bmatrix}\begin{bmatrix}\mu\\\alpha_1\\\alpha_2 \end{bmatrix} = \begin{bmatrix}-1\\1\\9\\11\\19\\21 \end{bmatrix}$$
+
+```{r}
+X <- matrix(c(1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0),
+            byrow=TRUE, nr=6)
+X
+
+y <- c(-1, 1, 9, 11, 19, 21)
+cbind(X, y)
+
+```
+
+- 연립방정식 $X^TX\beta = X^Ty$을 행렬로 표현하시오
+
+```{r}
+
+# 연립방정식 행렬 표현
+XTX <- t(X) %*% X
+XTy <- t(X) %*% y
+
+
+
+```
+
+- $X^TX\beta = X^Ty$의 답 $\hat\beta = b$를 구하시오
+```{r}
+NE <- cbind(XTX, XTy)
+NE
+```
+
+
+- $X\beta=y$의 답이 $b$가 되려면 $y$는 뭐가 되어야하는지 구하시오. $Xb$를 구하시오
+
+```{r}
+# Xb 구하기
+b <- solve(XTX, XTy)
+b
+```
+
+- $X\beta = y$의 답이 $b$가 되려면 $\hat y = Xb$이어야 하고 이는 원래 문제 $y$와 다르다. $y$와 $\hat y$가 얼마나 차이가 나는지 $e = y - \hat y$를 구하고 그 길이의 제곱을 구하시오.
+
+```{r}
+# e = y-\hat , 그 길이의 제곱
+yh <- X %*% b
+e <- y - yh
+round(data.frame(y=y, yh=yh, e), 4)
+
+sum(e*e)
+```
+
+- $H = X(X^TX)^{-1}X^T$를 구하시오.
+
+```{r}
+# H = X(XTX)-1XT 구함
+invXTX <- solve(XTX)
+```
+
+- $H^2 = H$인지 확인하시오.
+
+```{r}
+# H^2 = H 확인
+H <- X %*% invXTX %*% t(X)
+H
+```
+
+- $tr(H)$을 구하시오.
+
+```{r}
+# tr(H) 구하기
+sum(diag(H))
+
+
+```
+
+### 4: 기초통계량 계산
+- 답은 강의 자료에 있음
+- 다음 X에 대하여
+$$X_(n\times p) = \begin{bmatrix}2&3\\3&2\\7&1\\ \end{bmatrix}$$
+
+- 원자료를 X에 저장
+```{r}
+
+# 원자료를 X에 저장
+X <- matrix(c(2, 3, 3, 2, 7, 1), byrow=TRUE, nr=3)
+print(X)
+
+```
+
+- X의 중심화 행렬
+  - scale 사용
+```{r}
+
+## Scale 사용
+scale(X, center=TRUE, scale=FALSE)
+
+```
+  - 행렬연산
+```{r}
+XT <- t(X)
+XT
+
+S <- 0.5*(XT%*%X)
+S
+```
+- X의 표준화 행렬
+  - scale 사용
+```{r}
+scale(X, center=TRUE, scale=TRUE)
+```
+  - 행렬연산
+```{r}
+## 행렬연산
+ST <- t(S)
+R <- 0.5 * (ST %*% S)
+R
+
+```
+
+- X의 교차제곱합 행렬
+
+```{r}
+# X의 교차제곱합 행렬
+# t(Z)%*%Z
+```
+- X의 수정 교차제곱합 행렬 : 못 구했습니다.
+
+- S(X의 공분산 행렬)
+  - cov 사용
+```{r}
+## cov 사용
+S = cov(X)
+S
+```
+  - 행렬 연산
+```{r}
+## 행렬연산
+I3 <- diag(3)
+J3 <- matrix(1/nrow(X), nr=nrow(X), nc=nrow(X))
+C3 <- I3-J3
+cbind(I3, J3, C3)
+```
+- R(X의 상관행렬)
+  - cor 사용
+```{r}
+# cor 사용
+R = cor(X)
+R
+```
+  - 행렬연산 : 못 구했습니다.
+
+
+### 5: 분광분해 / SVD(htwtage4.csv)
+- htwtage4.csv를 읽어 다음을 구하시오
+```{r}
+X <- readr::read_csv('C:/Users/foxgi/OneDrive/project/DWU/multivariate/htwtage4.csv', col_names = TRUE)
+X
+
+```
+
+- S(공분산행렬)
+  - 분광분해
+```{r}
+## 분광분해
+S = cov(X)
+eigS <- eigen(S)
+V <- eigS$vector
+L <- eigS$value
+cbind(V, diag(L), t(V), V%*%diag(L)%*%t(V))
+```
+  - S1, S2 등으로 복원되는지 확인하시오
+```{r}
+## S1, S2 등으로 복원되는지 확인하시오
+S1 <- L[1]*V[,1]%*%t(V[,1])
+S2 <- L[2]*V[,2]%*%t(V[,2])
+cbind(S, S1, S1+S2)
+```
+- R(상관행렬)
+  - 분광분해
+```{r}
+## 분광분해
+R = cor(X)
+eigR <- eigen(R)
+V <- eigR$vector
+L <- eigR$value
+cbind(V, diag(L), t(V), V%*%diag(L)%*%t(V))
+```
+  - R1, R2 등으로 복원되는지 확인하시오
+```{r}
+
+## R1, R2 등으로 복원 확인
+R1 <- L[1]*V[,1]%*%t(V[,1])
+R2 <- L[2]*V[,2]%*%t(V[,2])
+cbind(R, R1, R1+R2)
+
+```
+- CX(중심화된 X)
+  - SVD 분해
+```{r}
+# 잘 모르겠습니다.
+```
+  - CX1, CX2 등으로 복원되는지 확인하시오
+```{r}
+# 잘 모르겠습니다.
+```
+- X(원자료)
+  - SVD 분해
+```{r}
+svdX <- svd(X)
+svdX
+```
+  - X1, X2 등으로 복원되는지 확인하시오.
+```{r}
+# 잘 모르겠습니다..
+```
+  
+### 6. 분광분해/SVD
+- 배우자에 대한 설문, 5점 측도(1: 매우 그렇지 않다, ..., 5: 매우 그렇다)
+  - Q1(x1ab): 배우자의 능력이 중요한가요?
+  - Q2(x2ap): 배우자의 용모가 중요한가요?
+  - Q3(x3ch): 배우자의 성품이 중요한가요?
+- 자료
+
+
+|id|x1ab(능력)|x2ap(용모)|x3ch(성품)|
+|---|---------|----------|----------|
+|Km |5        | 1        |2         |
+|Le |3        | 2        |1         |
+|Pk |2        | 1        |5         |
+|Ch |1        | 4        |2         |
+|Jg |2        | 2        |3         |
+|Kg |3        | 3        |1         |
+|Jo |4        | 2        |3         |
+
+- 자료를 X로 읽으시오(id는 입력할 필요없음)
+
+```{r}
+X <- matrix(c(5, 1, 2, 3, 2, 1, 2, 1, 5, 1, 4, 2, 2, 2, 3, 3, 3, 1, 4, 2, 3),
+            byrow=TRUE, nr=7)
+X
+
+```
+
+- fmsb를 이용하여 각 개인의 응답결과를 radar chart로 시각화하시오
+```{r}
+# fmsb 이용
+library(fmsb)
+library(RColorBrewer)
+```
+
+- X를 표준화한 Z를 구하시오
+```{r}
+Z = scale(X, center=TRUE, scale=TRUE)
+Z
+```
+
+```{r}
+# 여기서부터는 잘 모르겠습니다. 남은 시간 동안 더 공부하도록 하겠습니다..
+```
+
+- R(X의 상관행렬)을 구하시오
+  - R을 corrplot으로 시각화하시오
+```{r}
+```
+  - R을 분광분해하시오(V: 아이겐벡터 행렬, Lambda: 아이엔값 벡터 저장)
+```{r}
+```
+- 행렬 Z와 V를 곱한 결과를 Y에 저장하고 다음을 계산하시오(; Y<-Z%*%V)
+  - Y의 (변수별) 평균
+```{r}
+```
+  
+  - Y의 공분산행렬
+```{r}
+```
+  
+  - Y의 상관행렬을 구하고 corrplot으로 시각화하시오
+```{r}
+```
