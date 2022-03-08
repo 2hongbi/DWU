@@ -1,5 +1,5 @@
 package ch04;
-class Circle {
+class Circle2 {
     int radius; // 반지름
     String color; // 색상
 
@@ -9,8 +9,8 @@ class Circle {
 ;}
 public class CircleTest {
     public static void main(String[] args) {
-        Circle obj; // 참조 변수 선언
-        obj = new Circle(); // 객체 생성
+        Circle2 obj; // 참조 변수 선언
+        obj = new Circle2(); // 객체 생성
         obj.radius = 100;
         obj.color = "blue"; // 객체의 필드 접근
         double area = obj.calcArea();
