@@ -13,7 +13,7 @@ class Test {
 
 public class VarArgsTest {
     public static void main(String[] args) {
-        TestA c = new TestA();
+        Test c = new Test();
         c.sub(1);
         c.sub(2, 3, 4, 5, 6);
         c.sub();
