@@ -1,4 +1,4 @@
-package ch07.week06;
+package ch07.week6;
 
 import java.util.Scanner;
 
@@ -15,7 +15,8 @@ public class DivideByZeroOk {
         try {
             int result = x / y; //예외 발생!
         } catch (ArithmeticException e) {
-
+            System.out.println("0으로 나눌 수 없습니다.");
         }
+        System.out.println("프로그램은 계속 진행됩니다.");
     }
 }
