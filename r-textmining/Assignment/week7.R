@@ -31,11 +31,26 @@ top20 <- word_noun %>%
 
 top20
 
+# mac 한글 꺠짐
+theme_set(theme_gray(base_family = 'NanumGothic'))
+
 # 그래프 그리기
 library(ggplot2)
 ggplot(top20, aes(x = reorder(word, n), y = n)) +
   geom_col() +
   coord_flip () +
   geom_text(aes(label = n), hjust = -0.3) +
-  labs(x = NULL) + 
-  theme(text=element_text(failmy="nanumgotihc"))
+  labs(x = NULL)
+
+
+# 전처리하지 않은 연설문에서 연속된 공백을 제거하고 tibble 구조로 변환 후, 문장 기준으로 토큰화
+sen_park <- origin_park %>%
+  str_squish() %>% # 연속된 공백 제거
+  as_tibble() %>% # tibble 변환
+  unnest_tokens(input=value, output=sentence, token="sentences")
+
+sen_park
+
+
+# 연설문에서 "경제"가 사용된 문장 출력하기
+sen_park %>% filter(str_detect(sentence, "경제"))
