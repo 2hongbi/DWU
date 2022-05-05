@@ -30,5 +30,7 @@ public class Assignment9_1 {
         for (String str: strings) {
             System.out.println(str);
         }
+
+        sc.close();
     }
 }
