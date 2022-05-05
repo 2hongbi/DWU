@@ -1,5 +1,7 @@
 package ch12.week9;
 
+import java.util.Arrays;
+
 public class MyClass <T> {
     T val;
 
@@ -20,5 +22,9 @@ public class MyClass <T> {
             }
         }
         return max;
+    }
+
+    static <T> void displayArray(T[] a) {
+        System.out.println(Arrays.toString(a));
     }
 }
