@@ -1,6 +1,5 @@
 package week10.assign10_3;
 
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;

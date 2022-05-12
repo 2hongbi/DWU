@@ -1,6 +1,5 @@
 package week10.assign10_2;
 
-import java.util.Iterator;
 import java.util.Objects;
 
 public class People {
@@ -39,10 +38,6 @@ public class People {
     @Override
     public int hashCode() {
         return Objects.hash(name, age);
-    }
-
-    public void searchOrDelete(boolean check) {
-
     }
 
     @Override
