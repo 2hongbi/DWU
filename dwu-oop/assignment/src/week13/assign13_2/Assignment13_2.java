@@ -7,29 +7,26 @@ public class Assignment13_2 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
 
-        FileWriter fw = new FileWriter("/Users/isoyeon/Documents/dwu/DWU/dwu-oop/assignment/src/week13/assign13_2/result.txt");
+        PrintWriter pw = new PrintWriter("/Users/isoyeon/Documents/dwu/DWU/dwu-oop/assignment/src/week13/assign13_2/result.txt");
         while (true) {
             System.out.print("사용자 번호를 입력하세요 >> ");
             int num = sc.nextInt();
-            fw.write(num + ",");
             System.out.print("사용자 이름을 입력하세요 >> ");
             String name = sc.next();
-            fw.write(name + ",");
             System.out.print("사용자 전화번호를 입력하세요 >> ");
             String phoneNum = sc.next();
-            fw.write(phoneNum + ",");
             System.out.print("사용자 이메일을 입력하세요 >> ");
             String email = sc.next();
-            fw.write(email);
+            pw.write(num + "," + name + "," + phoneNum + "," + email);
 
             System.out.print("입력이 끝났으면 0, 계속 입력하려면 1을 입력하세요 >> ");
             int check = sc.nextInt();
             if (check == 0) {
-                fw.flush();
-                fw.close();
+                pw.flush();
+                pw.close();
                 break;
             } else if (check == 1) {
-                fw.write("\r\n");
+                pw.write("\r\n");
                 continue;
             }
         }
