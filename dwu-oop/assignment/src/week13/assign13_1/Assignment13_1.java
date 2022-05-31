@@ -1,5 +1,6 @@
+package week13.assign13_1;
+
 import java.io.*;
-import java.util.Locale;
 
 public class Assignment13_1 {
     public static void main(String[] args){
