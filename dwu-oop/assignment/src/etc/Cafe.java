@@ -1,4 +1,4 @@
-package mid;
+package etc;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,5 +29,7 @@ public class Cafe {
                 continue;
             }
         }
+
+        sc.close();
     }
 }
