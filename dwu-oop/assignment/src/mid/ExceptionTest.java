@@ -1,6 +1,4 @@
-package etc;
-
-import java.io.IOException;
+package mid;
 
 public class ExceptionTest {
 

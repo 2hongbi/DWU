@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 class OOP extends OOP1 {
 

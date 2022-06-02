@@ -1,6 +1,6 @@
-package etc;
+package mid;
 
-public class Hongbi extends Student{
+public class Hongbi extends Student {
     @Override
     void goToSchool() {
         System.out.println("아침에 학교 가기 싫다");

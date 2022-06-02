@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 public class Fruits {
     private String name;

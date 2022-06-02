@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 import java.util.HashMap;
 import java.util.Map;

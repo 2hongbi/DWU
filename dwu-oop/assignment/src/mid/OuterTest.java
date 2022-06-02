@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 class OuterClass {
     int value = 10;

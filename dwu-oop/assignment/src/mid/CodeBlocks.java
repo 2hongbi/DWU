@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 public class CodeBlocks {
     private static String aField = "";

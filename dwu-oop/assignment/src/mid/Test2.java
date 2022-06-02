@@ -1,4 +1,4 @@
-package etc;
+package mid;
 class A {
     private void A() {
         System.out.println("A");

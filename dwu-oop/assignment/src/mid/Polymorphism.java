@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 public class Polymorphism {
     public static void f() {

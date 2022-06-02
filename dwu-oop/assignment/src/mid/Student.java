@@ -1,4 +1,4 @@
-package etc;
+package mid;
 
 public abstract class Student {
     String name;
