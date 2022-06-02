@@ -1,0 +1,4 @@
+ 1: This is a Java Programming written by Park.
+ 2: 오늘은     6월 시작이네~
+ 3: 벌써 한학기가 끝--     났네요.
+ 4: 이제 마무리를 잘하고, 방학계획을 세워야겠지 ㅎㅎㅎ
