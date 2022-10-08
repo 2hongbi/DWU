@@ -17,47 +17,34 @@ import chromedriver_autoinstaller
 import parmap
 
 # Kloud 추가
-beer_list = ['fitz super clear', 'Asahi super dry', 'Tsingtao', 'Heineken',
+beer_list = [
  'Kirin ichiban', 'Sapporo Premium Beer / Draft Beer', 'stella artois', 'guinness braught',
- '1664 Blanc', 'pilsner urquell', 'San Miguel', 'OB premier pilsner', 'cass fresh',
- 'stout', 'dry finish', 'max hite', 'hite extra cold', 'victoria bitter', 'BINTANG pilsner',
- 'krombacher weizen', 'Miller Genuine Draft', 'Hoegaarden Cherry', 'TIGER REDLER',
- "Suntory The Premium Malt's", 'REEPER B Weissbier', 'PEEPER B IPA', 'TIGER BEER',
- 'TSINGTAO WHEAT BEER', 'Erdinger Weissbier', 'Carlsberg', 'Budweiser ', 'Hoegarden',
- 'YEBISU', 'Paulaner Hefe-weissbier', 'Desperados', 'Peroni Nastro Azzurro',
- 'Edelweiss Snowfresh', 'Heineken Dark Lager', 'Kozel Dark 10', 'Guinness original',
- 'Filite', 'SEOULITE ALE', 'JEJU WIT ALE', 'Stephans Brau Philsner', 'Stephans Brau Larger',
- 'Stephans Bräu Hefe-Weizen Naturtrüb', 'Bali Hai Premium Larger', 'Apostel Brau',
+ 'cass fresh',
+ 'stout', 'dry finish', 'max hite', 'hite extra cold',
+  'TIGER REDLER',
+ 'PEEPER B IPA',
+ 'TSINGTAO WHEAT BEER', 'Carlsberg',
+'Peroni Nastro Azzurro',
+ 'Guinness original',
+ 'Filite', 'SEOULITE ALE',
+ 'Bali Hai Premium Larger', 'Apostel Brau',
  'Egger Zwickl', 'Egger Marzenbier', 'Holsten Premium Beer', 'Franzisaner Hefe-Weissbier',
- 'Egger Radler Grapefruit', 'Barvaria Premium', 'Barvaria 8.6', 'Lapin Kulta IV A',
- 'Grolsch Premium Larger', 'Gambrinus Original', 'XXXX Gold', 'Leffe Brown',
- 'Lowenbrau Original', 'Asahi Super dray Black ', 'Harbin Beer', "beck's",
- 'Hoegaarden Rosee', 'Platinum White Ale', 'Platinum Pale Ale', 'Ambar Especial Larger',
- 'Schöfferhofer Grapefruit', 'Volfas Engelman Grünberger Hefeweizen', 'Berliner Kindl Pilsener ',
- 'BURGE MEESTER', 'Red Rock', 'Erdinger Dunkel', 'Warsteiner Premium Verum', "Queen's Ale Blonde Type",
-'OB Golden Lager', 'Magners Juicy Apple', 'Kabrew Namsan Mountain Premium Citra Ale', 'Kabrew Kumiho Relax Beer', 'Kabrew Kumiho India Pale Ale', 'Kabrew Kumiho Peach Ale', 'Kabrew Gyeongbokgung Royal Pride IPA', 'Kabrew Hoptandu IPA', 'Jeju Baengnokdam Ale', 'Jeju Pellong Ale', 'Jeju Seongsan Ilchulbong Ale', 'Jeju Barrel Series-Imperial Stout Edition - Highland Park', 'Jeju Coffee Golden Ale', 'Hollandia', 'Grimbergen Cuvée Blanche', 'Leffe Blonde / Blond', 'Hop House 13 Lager', 'Goose Island Goose IPA', 'Goose Island 312 Urban Wheat Ale', 'Happoshu Filgood', 'Cafri', 'Blue Girl', 'Apple Fox', 'Amazing Shocking Stout', 'Amazing First Love', 'ARK Be High IPA', 'ARK Hug Me', 'ARK Black Swan', 'ARK Cosmic Dancer', 'ARK Seoulite Ale', 'ARK Brown', 'ARK Classic', 'ARK Cony', 'ARK Yeosu Night Ale', 'Kabrew Golden Ale', 'Heretic Evil Twin',
-'North Coast Old Rasputin Russian Imperial Stout',
+ 'Egger Radler Grapefruit', 'Barvaria Premium', 'Barvaria 8.6',
+  'Leffe Brown',
+ 'Platinum Pale Ale', 'Ambar Especial Larger',
+ 'Schöfferhofer Grapefruit',
+ 'BURGE MEESTER',
+'Jeju Coffee Golden Ale',  'Leffe Blonde / Blond', 'Hop House 13 Lager', 'Happoshu Filgood', 'Cafri', 'Blue Girl',  'ARK Cosmic Dancer', 'ARK Seoulite Ale', 'Kabrew Golden Ale',
 'Schneider Weisse Tap 05 - Hopfenweisse Weizendoppelbock',
-'Ballast Point Sculpin IPA',
-'Préaris Citra Sauvignon Session Ale',
-'Samuel Adams Irish Red Ale',
-'7Bräu Gompyo Wheatbeer',
 'Paulaner Hefe-Weissbier',
 'Goose Island Duck Duck Goose',
-'Lagunitas India Pale Ale (IPA)',
-'Blue Moon Belgian White',
-'Kona Big Wave Golden Ale',
 'Desperados',
 'Desperados Red',
 'Desperados Mojito',
 'Desperados Lime',
-'Edelweiss Cherry & Lavender',
-'Somersby Apple Cider',
-'Somersby Pear Cider', '7Bräu Gompyo Wheatbeer', 'Squeeze Malpyo Dark Beer', 'Squeeze Malpyo Green Grape Ale', 
-'7Bräu Korea Pale Ale', 'ARK Be High IPA', 'ARK Hug Me', 'ARK Black Swan', 'The Hand and Malt Slow IPA', 
-'HiteJinro Filite Fresh Cool & Clear', 'Cass Light', 'Kabrew Gyeongbokgung Royal Pride IPA', 
-'Kabrew Kumiho India Pale Ale', 'Kabrew Namsan Mountain Premium Citra Ale', 'Kabrew Kumiho Peach Ale', 
-'Cass Lemon']
+ 'ARK Be High IPA', 'ARK Hug Me', 'ARK Black Swan',
+ 'Cass Light', 'Kabrew Gyeongbokgung Royal Pride IPA',
+ 'Kabrew Namsan Mountain Premium Citra Ale', 'Kabrew Kumiho Peach Ale']
 
 
 # beer_list = ['kloud']
@@ -156,7 +143,7 @@ def crawl(k):
     error_cnt = 0
 
     while 1:
-        try :
+        try:
             # 4번 사진에 해당 : 전체 리뷰 개수 수집
             time.sleep(3)
 
