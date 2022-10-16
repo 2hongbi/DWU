@@ -10,6 +10,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/big-data-algorithm/data/adult4ml-clean.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/big-data-algorithm/data/adult4ml.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/big-data-capstone/2-2/tmdb_5000_movies.csv">
           <value>
             <Attribute>
@@ -130,6 +144,20 @@
           </value>
         </entry>
         <entry key="/big-data-capstone/project/data/beer_n_Victoria Bitter.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/big-data-capstone/project/맥주_연도별평점.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/big-data-capstone/project/맥주전처리후데이터.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
