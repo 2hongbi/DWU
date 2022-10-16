@@ -157,6 +157,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/big-data-capstone/project/맥주_종류별_평점.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/big-data-capstone/project/맥주전처리후데이터.csv">
           <value>
             <Attribute>
