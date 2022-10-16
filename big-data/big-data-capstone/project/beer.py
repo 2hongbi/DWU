@@ -46,6 +46,10 @@ beer_list = [
  'Cass Light', 'Kabrew Gyeongbokgung Royal Pride IPA',
  'Kabrew Namsan Mountain Premium Citra Ale', 'Kabrew Kumiho Peach Ale']
 
+beer_list = ['guinness draught']
+#  'guinness original', 'hoegarden', 'pilsner urquell', 'stella artois',
+#             'weissbier naturtrub'
+
 
 # beer_list = ['kloud']
 
@@ -245,5 +249,7 @@ if __name__ == '__main__':
 
     input_list = range(len(beer_list))
 
-    parmap.map(crawl, input_list, pm_pbar=True, pm_processes=num_cores)
-
+    # parmap.map(crawl, input_list, pm_pbar=True, pm_processes=num_cores)
+    # 맥주 리스트 개수만큼 데이터 수집
+    for k in range(len(beer_list)):
+        result = crawl(k)
