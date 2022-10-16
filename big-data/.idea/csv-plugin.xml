@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/big-data-capstone/project/data/beer_n_7Bräu Gompyo Wheatbeer.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/big-data-capstone/project/data/beer_n_ARK Hug Me.csv">
           <value>
             <Attribute>
